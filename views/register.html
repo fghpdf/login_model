@@ -1,0 +1,52 @@
+<%- include header.html %>
+<div class="container-fluid" id="LG">
+  <div class="row-fluid">
+    <div class="span12">
+      <h3 class="text-center">
+        自动化打包平台
+      </h3>
+      <form class="form-horizontal" method="post" action="/register">
+        <% if(typeof(errorMessage) !== 'undefined') {%>
+          <span><%= errorMessage %></span>
+        <% } %>
+        <div class="control-group">
+          <label class="control-label" for="userEmail">账号</label>
+          <div class="controls">
+            <input id="userEmail" type="email" name="userEmail" placeholder="请输入邮箱注册" required="required" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="userPassword">密码</label>
+          <div class="controls">
+            <input id="userPassword" type="password" name="userPassword" placeholder="请输入密码" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="userName">企业名称</label>
+          <div class="controls">
+            <input id="userName" type="text" name="userName" placeholder="请输入企业名称" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="userTel">企业电话</label>
+          <div class="controls">
+            <input id="userTel" type="text" name="userTel" placeholder="请输入企业电话" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="userAddress">企业地址</label>
+          <div class="controls">
+            <input id="userAddress" type="text" name="userAddress" placeholder="请输入企业地址" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn">提交</button>
+            <button type="button" class="btn btn-primary"><a href="login">登录</a></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include footer.html %>

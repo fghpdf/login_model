@@ -1,0 +1,23 @@
+{
+  "name": "app9d",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "4.x",
+    "body-parser": "*",
+    "bookshelf": "0.5",
+    "cookie-parser": "*",
+    "debug": "~2.2.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0",
+    "passport": "*",
+    "passport-local": "*",
+    "bcrypt-nodejs": "*",
+    "express-session": "*",
+    "mysql": "*"
+  }
+}
