@@ -2,18 +2,27 @@ nodejs登录模板
 =============
 
 做这个模板希望以后能减少重复工作的时间，让工作更加高效吧
+
 接下来要详细介绍模板制作中使用的技术和遇到的难题
+
 在总结中提高自己的实力
+
 [我的github](https://github.com/fghpdf)
+
+[从这看更舒服](http://www.jianshu.com/p/c7deec5f68d8)
 
 ---
 
 ###采用技术
 
 主体逻辑：[express4](http://expressjs.com/)
+
 登录验证：[passport](http://passportjs.org/)
+
 数据库连接和查询：[kenx](http://knexjs.org/) + [bookshelf](http://bookshelfjs.org/)
+
 数据库：mysql
+
 工具：webstorm11
 
 ---
@@ -39,17 +48,24 @@ nodejs登录模板
 ###passport
 
 passport还是给自己带来了很大的困扰的
+
 一句话，还是理解了最好
+
 一个不错的中文网站：[passport.js学习笔记](http://idlelife.org/archives/808)
+
 上面讲的特别全面，足够排忧解难了
+
 
 ---
 
 ###knex
 
 knex是一个集成了Postgres, MySQL, MariaDB,SQLite3, and Oracle这些数据库连接查询的模块
+
 非常好用
+
 下面简单叙述一下mysql相关的使用方法
+
 #####安装
 ```
 npm install knex
@@ -90,7 +106,9 @@ var knex = require('knex')({
 });
 ```
 #####查询
+
 查询非常方便，不用再写sql语句了，下面来看一下吧
+
 **SELECT**
 ```
 knex.select('title', 'author', 'year').from('books')
@@ -128,7 +146,9 @@ knex('users').where('votes', '>', 100)
 //等同于
 select * from `users` where `votes` > 100
 ```
+
 更多的语法可以去官网上查看
+
 
 ---
 
@@ -139,12 +159,18 @@ bookshelf是在knex基础上做数据匹配的，用起来也是很方便
 ```
 npm install bookshelf//必须先安装knex
 ```
+
 直接参考官网的例子吧，能说明一切
+
 
 ---
 ###学习网站
 提供一些不错的学习网站以供参考
+
 [从零开始nodejs系列文章](http://blog.fens.me/series-nodejs/)
+
 [cnode论坛](https://cnodejs.org/)
+
 [基础课程](http://www.hubwiz.com/course/?type=nodes)
+
 [歪果仁写的教程](http://yifeed.com/passportjs-mysql-expressjs-authentication.html)
