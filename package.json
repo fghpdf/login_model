@@ -18,6 +18,7 @@
     "passport-local": "*",
     "bcrypt-nodejs": "*",
     "express-session": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "express-flash": "latest"
   }
 }

@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var flash = require('express-flash');
 var bcrypt = require('bcrypt-nodejs');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -16,35 +17,60 @@ var users = require('./routes/users');
 
 var model = require('./database/model');
 
-
-
 var app = express();
 
 //登陆模块
-passport.use(new LocalStrategy(function(userEmail, userPassword, done){
-  console.log(userEmail, userPassword);
-  new model.User({userEmail: userEmail}).fetch().then(function(data){
-    var user = data;
-    console.log(data);
-    if(user === null){
-      return done(null, false, {message: '此账号不存在'});
-    } else {
-      user = data.toJSON();
-      if(!bcrypt.compareSync(userEmail, user.userPassword)) {
-        return done(null, false, {message: '账号密码错误'});
-      } else {
-        return done(null, user);
-      }
-    }
-  });
-}));
+/*passport.use(new LocalStrategy({
+      usernameField: 'userEmail',
+      passwordField: 'userPassword'
+    },
+    function (userEmail, userPassword, done) {
+      console.log(userEmail, userPassword);
+      new model.User({userEmail: userEmail}).fetch().then(function (data) {
+        var user = data;
+        console.log(data);
+        if (user === null) {
+          return done(null, false, {message: '此账号不存在'});
+        } else {
+          user = data.toJSON();
+          if (!bcrypt.compareSync(userEmail, user.userPassword)) {
+            return done(null, false, {message: '账号密码错误'});
+          } else {
+            return done(null, user);
+          }
+        }
+      });
+    }));*/
+
+passport.use(new LocalStrategy({
+  usernameField: 'userEmail',
+  passwordField: 'userPassword'
+},
+    function (username, password, done) {
+      console.log(username, password);
+      new model.User({
+        userEmail: username
+      }).fetch().then(function(data){
+        var user = data;
+        if (user === null) {
+          return done(null, false, {message: '此账号不存在'});
+        } else {
+          user = data.toJSON();
+          if (!bcrypt.compareSync(password, user.userPassword)) {
+            return done(null, false, {message: '密码错误'});
+          } else {
+            return done(null ,user);
+          }
+        }
+      })
+    }));
 
 passport.serializeUser(function(user, done){
   done(null, user.userEmail);
 });
 
 passport.deserializeUser(function(username, done) {
-  new model.User({userEmail: user.userEmail}).fetch().then(function(user) {
+  new model.User({userEmail: username}).fetch().then(function(user) {
     done(null, user);
   });
 });
@@ -63,6 +89,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'keyboard'}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
