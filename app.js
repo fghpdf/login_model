@@ -19,28 +19,7 @@ var model = require('./database/model');
 
 var app = express();
 
-//登陆模块
-/*passport.use(new LocalStrategy({
-      usernameField: 'userEmail',
-      passwordField: 'userPassword'
-    },
-    function (userEmail, userPassword, done) {
-      console.log(userEmail, userPassword);
-      new model.User({userEmail: userEmail}).fetch().then(function (data) {
-        var user = data;
-        console.log(data);
-        if (user === null) {
-          return done(null, false, {message: '此账号不存在'});
-        } else {
-          user = data.toJSON();
-          if (!bcrypt.compareSync(userEmail, user.userPassword)) {
-            return done(null, false, {message: '账号密码错误'});
-          } else {
-            return done(null, user);
-          }
-        }
-      });
-    }));*/
+
 
 passport.use(new LocalStrategy({
   usernameField: 'userEmail',

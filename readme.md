@@ -1,176 +1,1 @@
-nodejs登录模板
-=============
-
-做这个模板希望以后能减少重复工作的时间，让工作更加高效吧
-
-接下来要详细介绍模板制作中使用的技术和遇到的难题
-
-在总结中提高自己的实力
-
-[我的github](https://github.com/fghpdf)
-
-[从这看更舒服](http://www.jianshu.com/p/c7deec5f68d8)
-
----
-
-###采用技术
-
-主体逻辑：[express4](http://expressjs.com/)
-
-登录验证：[passport](http://passportjs.org/)
-
-数据库连接和查询：[kenx](http://knexjs.org/) + [bookshelf](http://bookshelfjs.org/)
-
-数据库：mysql
-
-工具：webstorm11
-
----
-
-###工具调教
-这次最大的问题出在这里，工具不会用浪费了很多时间，所以把调教方法记录下来，以备后患
-####nodejs环境搭建
-在File->Settings->Languages & Frameworks->Javascripts->Libiraries中，需要很多包
-右边有一个download，可以下载需要的库，不用说，都安上
-
-![Libiraries](http://upload-images.jianshu.io/upload_images/187240-555654bb8d38618c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![Download](http://upload-images.jianshu.io/upload_images/187240-26ffc2d564be91bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-这样子，webstorm能少报很多错
-
-其次，快捷键ALT+ENTER能帮助解决问题，很好用
-
-最后，有一些自己的词汇在字典中没有，webstorm有拼写检查，字典中没有的单词会在该词下打破浪线，看的让人很不爽。建议不要关掉拼写检查，右键它，有加入字典的选项，这样更方便些。
-
----
-
-###passport
-
-passport还是给自己带来了很大的困扰的
-
-一句话，还是理解了最好
-
-一个不错的中文网站：[passport.js学习笔记](http://idlelife.org/archives/808)
-
-上面讲的特别全面，足够排忧解难了
-
-
----
-
-###knex
-
-knex是一个集成了Postgres, MySQL, MariaDB,SQLite3, and Oracle这些数据库连接查询的模块
-
-非常好用
-
-下面简单叙述一下mysql相关的使用方法
-
-#####安装
-```
-npm install knex
-```
-####连接数据库
-```
-var knex = require('knex')({ 
-    client: 'mysql', //数据库类型
-    connection: { 
-        host : '127.0.0.1', 
-        user : 'your_database_user', //数据库用户名
-        password : 'your_database_password', //用户名对应的密码
-        database : 'myapp_test' //要使用的数据库名
-}});
-```
-可以加入连接池
-```
-var knex = require('knex')({ 
-    client: 'mysql', //数据库类型
-    connection: { 
-        host : '127.0.0.1', 
-        user : 'your_database_user', //数据库用户名
-        password : 'your_database_password', //用户名对应的密码
-        database : 'myapp_test' //要使用的数据库名
-    }, 
-    pool: { 
-        min: 0, 
-        max: 7 
-}});
-```
-可以加入断线重连的时间
-```
-var knex = require('knex')({ 
-    client: 'pg', 
-    connection: {...}, 
-    pool: {...}, 
-    acquireConnectionTimeout: 10000 
-});
-```
-#####查询
-
-查询非常方便，不用再写sql语句了，下面来看一下吧
-
-**SELECT**
-```
-knex.select('title', 'author', 'year').from('books')
-//等同于
-select `title`, `author`, `year` from `books`
-```
-**as**
-```
-knex.avg('sum_column1').from(function() { 
-    this.sum('column1 as sum_column1').from('t1').groupBy('column1').as('t1')
-}).as('ignored_alias')
-//等同于
-select avg(`sum_column1`) from (select sum(`column1`) as `sum_column1` from `t1` group by `column1`) as `t1`
-```
-**column**
-```
-knex.column('title', 'author', 'year').select().from('books')
-//等同于
-select `title`, `author`, `year` from `books`
-```
-**where**
-```
-knex('users').where('id', 1)
-//等同于
-select * from `users` where `id` = 1
-
-knex('users').where({ 
-    first_name: 'Test', 
-    last_name: 'User'
-}).select('id')
-//等同于
-select `id` from `users` where `first_name` = 'Test' and `last_name` = 'User'
-
-knex('users').where('votes', '>', 100)
-//等同于
-select * from `users` where `votes` > 100
-```
-
-更多的语法可以去官网上查看
-
-
----
-
-###Bookshelf
-bookshelf是在knex基础上做数据匹配的，用起来也是很方便
-
-#####安装
-```
-npm install bookshelf//必须先安装knex
-```
-
-直接参考官网的例子吧，能说明一切
-
-
----
-###学习网站
-提供一些不错的学习网站以供参考
-
-[从零开始nodejs系列文章](http://blog.fens.me/series-nodejs/)
-
-[cnode论坛](https://cnodejs.org/)
-
-[基础课程](http://www.hubwiz.com/course/?type=nodes)
-
-[歪果仁写的教程](http://yifeed.com/passportjs-mysql-expressjs-authentication.html)
+nodejs登录模板=============做这个模板希望以后能减少重复工作的时间，让工作更加高效吧接下来要详细介绍模板制作中使用的技术和遇到的难题在总结中提高自己的实力[我的github](https://github.com/fghpdf)[从这看更舒服](http://www.jianshu.com/p/c7deec5f68d8)---###采用技术主体逻辑：[express4](http://expressjs.com/)登录验证：[passport](http://passportjs.org/)数据库连接和查询：[kenx](http://knexjs.org/) + [bookshelf](http://bookshelfjs.org/)数据库：mysql工具：webstorm11---###工具调教这次最大的问题出在这里，工具不会用浪费了很多时间，所以把调教方法记录下来，以备后患####nodejs环境搭建在File->Settings->Languages & Frameworks->Javascripts->Libiraries中，需要很多包右边有一个download，可以下载需要的库，不用说，都安上![Libiraries](http://upload-images.jianshu.io/upload_images/187240-555654bb8d38618c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![Download](http://upload-images.jianshu.io/upload_images/187240-26ffc2d564be91bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)这样子，webstorm能少报很多错其次，快捷键ALT+ENTER能帮助解决问题，很好用最后，有一些自己的词汇在字典中没有，webstorm有拼写检查，字典中没有的单词会在该词下打破浪线，看的让人很不爽。建议不要关掉拼写检查，右键它，有加入字典的选项，这样更方便些。---###passportpassport还是给自己带来了很大的困扰的一句话，还是理解了最好一个不错的中文网站：[passport.js学习笔记](http://idlelife.org/archives/808)上面讲的特别全面，足够排忧解难了---###knexknex是一个集成了Postgres, MySQL, MariaDB,SQLite3, and Oracle这些数据库连接查询的模块非常好用下面简单叙述一下mysql相关的使用方法#####安装```npm install knex```####连接数据库```var knex = require('knex')({     client: 'mysql', //数据库类型    connection: {         host : '127.0.0.1',         user : 'your_database_user', //数据库用户名        password : 'your_database_password', //用户名对应的密码        database : 'myapp_test' //要使用的数据库名}});```可以加入连接池```var knex = require('knex')({     client: 'mysql', //数据库类型    connection: {         host : '127.0.0.1',         user : 'your_database_user', //数据库用户名        password : 'your_database_password', //用户名对应的密码        database : 'myapp_test' //要使用的数据库名    },     pool: {         min: 0,         max: 7 }});```可以加入断线重连的时间```var knex = require('knex')({     client: 'pg',     connection: {...},     pool: {...},     acquireConnectionTimeout: 10000 });```#####查询查询非常方便，不用再写sql语句了，下面来看一下吧**SELECT**```knex.select('title', 'author', 'year').from('books')//等同于select `title`, `author`, `year` from `books````**as**```knex.avg('sum_column1').from(function() {     this.sum('column1 as sum_column1').from('t1').groupBy('column1').as('t1')}).as('ignored_alias')//等同于select avg(`sum_column1`) from (select sum(`column1`) as `sum_column1` from `t1` group by `column1`) as `t1````**column**```knex.column('title', 'author', 'year').select().from('books')//等同于select `title`, `author`, `year` from `books````**where**```knex('users').where('id', 1)//等同于select * from `users` where `id` = 1knex('users').where({     first_name: 'Test',     last_name: 'User'}).select('id')//等同于select `id` from `users` where `first_name` = 'Test' and `last_name` = 'User'knex('users').where('votes', '>', 100)//等同于select * from `users` where `votes` > 100```更多的语法可以去官网上查看---###Bookshelfbookshelf是在knex基础上做数据匹配的，用起来也是很方便一般用这个来做ORM模块#####安装```npm install bookshelf//必须先安装knex```#####数据库连接```//这里用knex连接数据库var knex = require('knex')({ client: 'mysql', connection: {   host : '127.0.0.1',   user : 'your_database_user',   password : 'your_database_password',   database : 'myapp_test',   charset : 'utf8' }});//连上knexvar bookshelf = require('bookshelf')(knex);//选定使用的表,其中Model是bookshelf提供的一个便利的类，利用它能实现很多数据库的操作//可以在其中添加很多属性，比如idAttribute，方便存取数据var User = bookshelf.Model.extend({ tableName: 'users'});//把User做成ORM模块的接口，这样就可以自由的使用Model提供的方法啦module.exports = {  User: User}```bookshelf集成了很多ORM功能，虽然有些时候不尽人意，但是能做到基本满意下面简单介绍一下常用的功能######查询bookshelf提供了很多查询方式，功能非常强大，先说一个简单的查询```Model = require('./你的路径/model');//这里是用一个值来查询表项，比如用fghpdf（我的用户名）通过name字段来//查询这一条表项，fetch()会匹配到这个表项，传给model//model提供了get()方法来获取值，栗子中就是获取id的值new Model.User({你的字段: 字段的值}).fetch().then(function(model) {  console.log(model.get('id'));})```bookshelf还提供了where查询等等方式，有兴趣的可以进官网看一下#####存储```Model = require('./你的路径/model');//这里就是通过在接口传递值，用save()方法来保存在数据库中//model可以返回错误信息new Model.User({  id: 值,  name: 值,  字段: 值}).save().then(function(model){  ...})```#####删除删除比较复杂，bookshelf提供了destroy的方法来删除表项，但是查找方式跟预设的idAttribute有关，如果你在idAttribute中设置的值为id，那么你只能通过id来删除```Model = require('./你的路径/model');new Model.User({id: 1}).destroy().then(function(model){  ...})```我以后用到更多的方法，会陆续更新给大家---###学习网站提供一些不错的学习网站以供参考[从零开始nodejs系列文章](http://blog.fens.me/series-nodejs/)[cnode论坛](https://cnodejs.org/)[基础课程](http://www.hubwiz.com/course/?type=nodes)[歪果仁写的教程](http://yifeed.com/passportjs-mysql-expressjs-authentication.html)
