@@ -22,6 +22,7 @@
     "express-flash": "latest"
   },
   "devDependencies": {
-    "morgan": ">=1.9.1"
+    "morgan": ">=1.9.1",
+    "debug": ">=2.6.9"
   }
 }
