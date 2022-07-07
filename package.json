@@ -20,5 +20,8 @@
     "express-session": "*",
     "mysql": "*",
     "express-flash": "latest"
+  },
+  "devDependencies": {
+    "morgan": ">=1.9.1"
   }
 }
